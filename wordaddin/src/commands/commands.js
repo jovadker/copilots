@@ -28,17 +28,24 @@ function action(event) {
   event.completed();
 }
 
-function summarizeAction(event) {
-  // Your code to summarize the selected text
-  console.log("Summarize action triggered");
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function summarizeAction(event) {
+  // Send a message to the task pane
+  Office.addin.showAsTaskpane();
+  localStorage.setItem("action", JSON.stringify({ action: "summarize" }));
+
   event.completed();
 }
 
-function rephraseAction(event) {
-  // Your code to rephrase the selected text
-  console.log("Rephrase action triggered");
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function rephraseAction(event) {
+  // Send a message to the task pane
+  Office.addin.showAsTaskpane();
+  localStorage.setItem("action", JSON.stringify({ action: "rephrase" }));
   event.completed();
 }
 
 // Register the function with Office.
 Office.actions.associate("action", action);
+Office.actions.associate("summarizeAction", summarizeAction);
+Office.actions.associate("rephraseAction", rephraseAction);

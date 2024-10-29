@@ -26,6 +26,23 @@ Office.onReady((info) => {
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("run").onclick = run;
     document.getElementById("sendMessage").onclick = sendMessage;
+    // Poll for changes in localStorage
+    setInterval(() => {
+      const action = localStorage.getItem("action");
+      if (action) {
+        const message = JSON.parse(action);
+        if (message.action === "summarize") {
+          // Trigger the summarize action in the task pane
+          summarizeInTaskPane();
+        } else if (message.action === "rephrase") {
+          // Trigger the rephrase action in the task pane
+          rephraseInTaskPane();
+        }
+        // Clear the action after handling it
+        localStorage.removeItem("action");
+      }
+    }, 1000); // Poll every second
+    //Initialize bot framework webchat
     initializeWebChatUS();
   }
 });
@@ -66,16 +83,10 @@ async function initializeWebChatUS() {
 
 export async function run() {
   return Word.run(async (context) => {
-    /**
-     * Insert your Word code here
-     */
-
     // insert a paragraph at the end of the document.
     const paragraph = context.document.body.insertParagraph("Hello World", Word.InsertLocation.end);
-
     // change the paragraph color to blue.
     paragraph.font.color = "blue";
-
     await context.sync();
   });
 }
@@ -87,6 +98,47 @@ export function sendMessage() {
       from: { id: "user1", name: "User" },
       type: "message",
       text: "Create a sales template for customer John Doe",
+    })
+    .subscribe(
+      (id) => console.log(`Message sent with ID ${id}`),
+      (error) => console.error(`Error sending message: ${error}`)
+    );
+}
+
+function summarizeInTaskPane() {
+  // Your code to handle the summarize action in the task pane
+  console.log("Summarize action triggered in task pane");
+  Word.run(async (context) => {
+    const selection = context.document.getSelection();
+    selection.load("text");
+    await context.sync();
+    // Send the selected text to the bot
+    sendMessageToBotWithInstruction(selection.text, "Summarize the following text in the same language");
+
+    console.log(`Selected text: ${selection.text}`);
+  });
+}
+
+function rephraseInTaskPane() {
+  // Your code to handle the rephrase action in the task pane
+  console.log("Rephrase action triggered in task pane");
+  Word.run(async (context) => {
+    const selection = context.document.getSelection();
+    selection.load("text");
+    await context.sync();
+    // Send the selected text to the bot
+    sendMessageToBotWithInstruction(selection.text, "Rephrase the following text in the same language");
+
+    console.log(`Selected text: ${selection.text}`);
+  });
+}
+
+function sendMessageToBotWithInstruction(message, instruction) {
+  directLine
+    .postActivity({
+      from: { id: "user1", name: "User" },
+      type: "message",
+      text: instruction + " " + message,
     })
     .subscribe(
       (id) => console.log(`Message sent with ID ${id}`),
