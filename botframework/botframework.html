@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Chat: Customizing thru style options</title>
     <script type="text/javascript" src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
     <style>
@@ -39,11 +41,12 @@
       //DirectLine Copilot resided in US-dev environment
 
       async function initializeWebChat() {
-        const res = await fetch('https://bdd71775d624ea2ab799b9b78f6394.03.environment.api.powerplatform.com/powervirtualagents/botsbyschema/crcd4_copilot/directline/token?api-version=2022-03-01-preview', { method: 'GET' });
+        const res = await fetch('https://bdd71775d624ea2ab799b9b78f6394.03.environment.api.powerplatform.com/powervirtualagents/botsbyschema/crcd4_copilot/directline/token?api-version=2022-03-01-preview', 
+        { method: 'GET'});
         const { token } = await res.json();
 
         window.WebChat.renderWebChat({
-          //directLine: window.WebChat.createDirectLine({ secret: 'YOUR_BOT_SECRET_FROM_AZURE' }),
+          //directLine: window.WebChat.createDirectLine({ secret: 'SECRET FROM COPILOT STUDIO' }),
           directLine: window.WebChat.createDirectLine({ token }),
           styleOptions
         }, document.getElementById('webchat'));
