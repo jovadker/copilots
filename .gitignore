@@ -29,6 +29,9 @@ jspm_packages/
 # Mac system files
 .DS_Store
 
+#config.dev.js
+config.dev.js
+
 # Editor directories and files
 .idea/
 .vscode/

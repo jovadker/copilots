@@ -4,21 +4,69 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Chat: Customizing thru style options</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
+    <script type="text/javascript">
+      // Load config.dev.js if it exists, otherwise load config.js
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = 'config.dev.js';
+      script.onerror = function() {
+        const fallbackScript = document.createElement('script');
+        fallbackScript.type = 'text/javascript'; 
+        fallbackScript.src = 'config.js';
+        document.head.appendChild(fallbackScript);
+      };
+      document.head.appendChild(script);
+    </script>
     <style>
       html, body { height: 100% }
-      body { margin: 0 }
+      body { margin: 0; display: flex; }
+
+      .container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+      }
+
+      .column {
+        flex: 1;
+        padding: 10px;
+      }
+
+      .column:nth-child(2) {
+        background-color: black;
+      }
 
       #webchat,
       #webchat > * {
         height: 100%;
         width: 100%;
       }
+      button {
+        background-color: blue;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: darkblue;
+      }
     </style>
   </head>
   <body>
-    <div id="webchat"></div>
-    <button onclick="sendMessage()">Send custom message</button>
+    <div class="container">
+      <div class="column">
+        <div id="webchat"></div>
+      </div>
+      <div class="column">
+        <!-- Second column content goes here -->
+        <button onclick="sendMessage()">Send custom message</button>
+      </div>
+    </div>
+    
     <script>
       const styleOptions = {
         backgroundColor: 'Black',
@@ -33,16 +81,12 @@
       };
 
       var directLine;
-      //USA: https://bdd71775d624ea2ab799b9b78f6394.03.environment.api.powerplatform.com/powervirtualagents/botsbyschema/crcd4_copilot/directline/token?api-version=2022-03-01-preview
-      //EU: https://0b90d036e017e8409287b1de3d95e2.52.environment.api.powerplatform.com/powervirtualagents/botsbyschema/cr3d7_copilotDirectLineEu/directline/token?api-version=2022-03-01-preview
       //DirectLine Copilot resided in US-dev environment
       async function initializeWebChat() {
-        //const res = await fetch('https://bdd71775d624ea2ab799b9b78f6394.03.environment.api.powerplatform.com/powervirtualagents/botsbyschema/crcd4_copilot/directline/token?api-version=2022-03-01-preview', { method: 'GET' });
-        const res = await fetch('https://0b90d036e017e8409287b1de3d95e2.52.environment.api.powerplatform.com/powervirtualagents/botsbyschema/cr3d7_copilotDirectLineEu/directline/token?api-version=2022-03-01-preview', { method: 'GET' });
+        const res = await fetch(config.directLineTokenUrl, { method: 'GET' });
         const { token } = await res.json();
 
-        //https://europe.directline.botframework.com/
-        directLine = window.WebChat.createDirectLine({ token: token, domain: 'https://europe.directline.botframework.com/v3/directline' });
+        directLine = window.WebChat.createDirectLine({ token: token, domain: config.directLineDomain });
 
         window.WebChat.renderWebChat({
           directLine: directLine,
@@ -55,7 +99,7 @@
         directLine.postActivity({
           from: { id: 'user1', name: 'User' },
           type: 'message',
-          text: 'Prepare a sales contract for customer John Doe'
+          text: 'Create a sales template'
         }).subscribe(
           id => console.log(`Message sent with ID ${id}`),
           error => console.error(`Error sending message: ${error}`)
@@ -70,11 +114,11 @@
 
       }
 
-      initializeWebChat();
+      $(document).ready(function() {
+        initializeWebChat();
+      });
 
-
-      
-
+      //initializeWebChat();
     </script>
   </body>
 </html>
