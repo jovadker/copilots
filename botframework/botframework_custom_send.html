@@ -81,12 +81,12 @@
       };
 
       var directLine;
-      //DirectLine Copilot resided in US-dev environment
       async function initializeWebChat() {
         const res = await fetch(config.directLineTokenUrl, { method: 'GET' });
         const { token } = await res.json();
 
-        directLine = window.WebChat.createDirectLine({ token: token, domain: config.directLineDomain });
+        directLine = window.WebChat.createDirectLine({ token: token, 
+          domain: config.directLineDomain });
 
         window.WebChat.renderWebChat({
           directLine: directLine,
@@ -113,12 +113,11 @@
         });
 
       }
-
-      $(document).ready(function() {
+      //using window.onload to ensure the DOM is fully loaded before running the script
+      $(window).on('load', function() {
         initializeWebChat();
       });
 
-      //initializeWebChat();
     </script>
   </body>
 </html>
