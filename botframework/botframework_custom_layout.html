@@ -89,6 +89,8 @@
 
         directLine = window.WebChat.createDirectLine({ token: token, 
           domain: config.directLineDomain });
+        //Using secret from Copilot Studio (it is not recommended to use secret in production)
+        //directLine: window.WebChat.createDirectLine({ secret: config.secret, domain: config.directLineDomain }),
 
         window.WebChat.renderWebChat({
           directLine: directLine,
