@@ -36,6 +36,7 @@
 
       .column:nth-child(2) {
         background-color: black;
+        color: blue;
       }
 
       #webchat,
@@ -64,6 +65,7 @@
       <div class="column">
         <!-- Second column content goes here -->
         <button onclick="sendMessage()">Send custom message</button>
+        <div id="response"></div>
       </div>
     </div>
     
@@ -109,6 +111,10 @@
         directLine.activity$.subscribe(activity => {
           if (activity.type === 'message' && activity.from.id !== 'user1') {
               console.log(`Bot said: ${activity.text}`);
+                const responseDiv = document.getElementById('response');
+                const messageParagraph = document.createElement('p');
+                messageParagraph.textContent = activity.text;
+                responseDiv.appendChild(messageParagraph);
           }
         });
 
