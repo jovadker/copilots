@@ -26,16 +26,11 @@ description: This minimal JavaScript application demonstrates usage of the Micro
 
 ## Overview
 
-This sample demonstrates how to sign users into a sample Vanilla JavaScript single-page application (SPA) tby using Microsoft Entra ID. The sample utilizes the [Microsoft Authentication Library for JavaScript](https://github.com/AzureAD/microsoft-authentication-library-for-js) (MSAL.js) to simplify adding authentication.
+This sample demonstrates how to single sign users (SSO) into Copilot Studio Agents in a Vanilla JavaScript single-page application (SPA) by using Microsoft Entra ID. The sample utilizes the [Microsoft Authentication Library for JavaScript](https://github.com/AzureAD/microsoft-authentication-library-for-js) (MSAL.js) to simplify adding authentication.
 
 ## Usage
 
-| Instruction                  |                Description                  |
-|------------------------------|---------------------------------------------|
-| **Use case**                 | Authenticate users and call a protected web API. |
-| **Scenario**                 | Sign in users. You acquire an ID token by using authorization code flow with PKCE. |
-| **Add sign in to your app**  | Use the instructions in [Sign in users in a single-page app (SPA) and call the Microsoft Graph API using JavaScript](https://learn.microsoft.com/entra/identity-platform/quickstart-single-page-app-javascript-sign-in) to learn how to add sign in to your JavaScript SPA. |
-| **Product documentation**    | Explore [Microsoft Entra ID for customers documentation](https://learn.microsoft.com/entra/external-id/customers/) |
+
 
 ## Contents
 

@@ -5,7 +5,6 @@
  */
 const msalConfig = {
     auth: {
-
         clientId: "99c641a1-2928-4556-868b-10f180605c79", // This is the ONLY mandatory field that you need to supply
         // WORKFORCE TENANT
         authority: "https://login.microsoftonline.com/4ae51f31-033a-48fa-be48-5ece14d2c081", //  Replace the placeholder with your tenant info

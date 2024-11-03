@@ -6,3 +6,9 @@ td {
     word-break: break-word;
     max-width: 20rem;
 }
+
+.column {
+    flex: 1;
+    padding: 10px;
+  }
+
