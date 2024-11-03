@@ -21,7 +21,7 @@
     "ms-identity",
     "single-page app"
   ],
-  "author": "derisen",
+  "author": "jovadker",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Azure-Samples/ms-identity-javascript-tutorial/issues"
