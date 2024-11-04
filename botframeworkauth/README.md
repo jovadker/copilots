@@ -18,7 +18,7 @@ By clicking on the Login button, a new browser tab is opened we  we can select o
 ![Login Number](./ReadmeFiles/LoginNumber.jpg)
 
 We need to copy this number and provide it to our chatbot:
-![Successful Login](./ReadmeFiles/successfulLogin.jpg)
+![Successful Login](./ReadmeFiles/SuccessfulLogin.jpg)
 
 With the help of SSO we can bypass this workaround and can directly login the web site and the copilot studio agent in one step. 
 ![SSO Process](./ReadmeFiles/SSO.gif)
@@ -68,7 +68,7 @@ In addition, we need to create a new platform in the same App Registration calle
 ![Single Page App](./ReadmeFiles/SinglePageApplication.jpg)
 
 The last thing we need to accomplish is to define a scope in our App Registration as the following figure shows:
-![Custom Scope](./ReadmeFiles/customscope.jpg)
+![Custom Scope](./ReadmeFiles/CustomScope.jpg)
 
 We will use this scope in our Copilot Studio Security page as Token exchange URL (required for SSO), see the first picture in this section. The scope should follow tha pattern *AppID Uri / scope* name, e.g.:
 `api://99c641a1-2928-4556-868b-10f180605c79/Read`
