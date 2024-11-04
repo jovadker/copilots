@@ -5,6 +5,9 @@
 * [Contents](#contents)
 * [Prerequisites](#prerequisites)
 * [Clone or download the sample application](#clone-or-download-the-sample-application)
+* [Register the SPA in your tenant](#register-the-spa-in-your-tenant)
+* [Configure the project](#configure-the-project)
+* [Run the application and sign in](#run-the-application-and-sign-in)
 * [Learn More](#learn-more)
 
 ## Overview
@@ -12,12 +15,15 @@ This sample demonstrates how to single sign-on users (SSO) into Microsoft Copilo
 
 ## Usage
 Microsoft Copilot Studio supports Microsoft Entra ID-based authentication. If we set it up, then our chatbot guides us through the authentication process by default. It means, when we visit our demo site, or any of the other channels the chatbot displays a Login button:
+
 ![Login Page](./ReadmeFiles/LoginPage.jpg)
 
 By clicking on the Login button, a new browser tab is opened we  we can select our work account and go through the authentication process. After successful login, we will get a number that we need to copy back to the chatbot:
+
 ![Login Number](./ReadmeFiles/LoginNumber.jpg)
 
 We need to copy this number and provide it to our chatbot:
+
 ![Successful Login](./ReadmeFiles/SuccessfulLogin.jpg)
 
 With the help of SSO we can bypass this workaround and can directly login the web site and the copilot studio agent in one step. 
