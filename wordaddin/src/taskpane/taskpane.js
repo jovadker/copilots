@@ -48,16 +48,19 @@ Office.onReady((info) => {
 });
 
 async function initializeWebChatUS() {
-  // DirectLineEU in prod environment of jovadkere5 tenant
-  //USA: https://bdd71775d624ea2ab799b9b78f6394.03.environment.api.powerplatform.com/powervirtualagents/botsbyschema/crcd4_copilot/directline/token?api-version=2022-03-01-preview
-  //EU: https://0b90d036e017e8409287b1de3d95e2.52.environment.api.powerplatform.com/powervirtualagents/botsbyschema/cr3d7_copilotDirectLineEu/directline/token?api-version=2022-03-01-preview
-  const res = await fetch(
-    "https://bdd71775d624ea2ab799b9b78f6394.03.environment.api.powerplatform.com/powervirtualagents/botsbyschema/crcd4_copilot/directline/token?api-version=2022-03-01-preview",
-    { method: "GET" }
-  );
+  try {
+    await import("./config.dev.js");
+  } catch (error) {
+    await import("./config.js");
+  }
+  const res = await fetch(config.directLineTokenUrl, { method: "GET" });
   const { token } = await res.json();
 
-  directLine = window.WebChat.createDirectLine({ token });
+  directLine = window.WebChat.createDirectLine({
+    token: token,
+    domain: config.directLineDomain,
+  });
+
   window.WebChat.renderWebChat(
     {
       directLine: directLine,
