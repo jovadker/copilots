@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Chat: Customizing thru style options</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
+    <script type="text/javascript">
+      // Load config.dev.js if it exists, otherwise load config.js
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = 'config.dev.js';
+      script.onerror = function() {
+        const fallbackScript = document.createElement('script');
+        fallbackScript.type = 'text/javascript'; 
+        fallbackScript.src = 'config.js';
+        document.head.appendChild(fallbackScript);
+      };
+      document.head.appendChild(script);
+    </script>
+    <style>
+      html, body { height: 100% }
+      body { margin: 0; display: flex; }
+
+      .container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+      }
+
+      .column {
+        flex: 1;
+        padding: 10px;
+      }
+
+      .column:nth-child(2) {
+        background-color: black;
+        color: blue;
+      }
+
+      #webchat,
+      #webchat > * {
+        height: 100%;
+        width: 100%;
+      }
+      button {
+        background-color: blue;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: darkblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="column">
+        <div id="webchat"></div>
+      </div>
+      <div class="column">
+        <!-- Second column content goes here -->
+        <button onclick="sendMessage()">Send custom message</button>
+        <div id="response"></div>
+      </div>
+    </div>
+    
+    <script>
+      const styleOptions = {
+        backgroundColor: 'Black',
+        bubbleBackground: '#222',
+        bubbleBorder: 'solid 1px #444',
+        bubbleBorderRadius: 20,
+        bubbleFromUserBackground: '#222',
+        bubbleFromUserBorder: 'solid 1px #444',
+        bubbleFromUserBorderRadius: 20,
+        bubbleFromUserTextColor: 'White',
+        bubbleTextColor: 'White'
+      };
+
+      var directLine;
+      async function initializeWebChat() {
+        const res = await fetch(config.directLineTokenUrl, { method: 'GET' });
+        const { token } = await res.json();
+
+        directLine = window.WebChat.createDirectLine({ token: token, 
+          domain: config.directLineDomain });
+        //Using secret from Copilot Studio (it is not recommended to use secret in production)
+        //directLine: window.WebChat.createDirectLine({ secret: config.secret, domain: config.directLineDomain }),
+
+        window.WebChat.renderWebChat({
+          directLine: directLine,
+          webSpeechPonyfillFactory: await createCognitiveServicesSpeechServicesPonyfillFactory({
+            credentials: {
+              region: 'westeurope',
+            subscriptionKey: config.speechServiceApiKey
+          }}),
+          styleOptions
+        }, document.getElementById('webchat'));
+      }
+
+      function sendMessage() {
+        //send a message to the bot
+        directLine.postActivity({
+          from: { id: 'user1', name: 'User' },
+          type: 'message',
+          text: 'Create a sales template'
+        }).subscribe(
+          id => console.log(`Message sent with ID ${id}`),
+          error => console.error(`Error sending message: ${error}`)
+        );
+
+        // Subscribe to receive messages from the bot
+        directLine.activity$.subscribe(activity => {
+          if (activity.type === 'message' && activity.from.id !== 'user1') {
+              console.log(`Bot said: ${activity.text}`);
+                const responseDiv = document.getElementById('response');
+                const messageParagraph = document.createElement('p');
+                messageParagraph.textContent = activity.text;
+                responseDiv.appendChild(messageParagraph);
+          }
+        });
+
+      }
+      //using window.onload to ensure the DOM is fully loaded before running the script
+      $(window).on('load', function() {
+        initializeWebChat();
+      });
+
+    </script>
+  </body>
+</html>
