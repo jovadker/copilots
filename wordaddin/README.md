@@ -60,7 +60,7 @@ To obtain the sample application, you can either clone it from GitHub or downloa
 
 1. Open the project folder "wordaddin" in Visual Studio Code
 2. create a config.dev.js file next to the "`src/taskpane/config.js`" to introduce your own Copilot Studio agent parameters:
-    ```json
+    ```js
     const config = {
         directLineTokenUrl: 'https://XXXXXXXXXXXXX.YY.environment.api.powerplatform.com/powervirtualagents/botsbyschema/cr3d7_copilotDirectLineEu/directline/token?api-version=2022-03-01-preview',
         directLineDomain: 'https://europe.directline.botframework.com/v3/directline', // for Europe 
@@ -69,7 +69,7 @@ To obtain the sample application, you can either clone it from GitHub or downloa
     ```
 
     For US-based Copilot Studio agents please replace the directLineDomain value with the following:
-    ```json
+    ```js
     directLineDomain: 'https://directline.botframework.com/v3/directline' // for US
     ```
 
