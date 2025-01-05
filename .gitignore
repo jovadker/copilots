@@ -42,3 +42,6 @@ config.dev.js
 *.ntvs*
 *.njsproj
 *.dll
+acs/src/CallAutomation/appsettings.json
+acs/src/jovadkerecho/Properties/PublishProfiles/telephonybothost - Web Deploy.pubxml
+acs/src/jovadkerecho/Properties/PublishProfiles/telephonybothost - Web Deploy.pubxml.user
