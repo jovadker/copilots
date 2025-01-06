@@ -43,7 +43,12 @@
         "secretContentType": {
             "defaultValue": "",
             "type": "String"
+        },
+        "messagingEndpoint": {
+            "defaultValue": "",
+            "type": "String"
         }
+
     },
     "variables": {
         "botDisplayName": "[if(empty(parameters('displayName')), parameters('botId'), parameters('displayName'))]",
@@ -73,7 +78,7 @@
                 "msaAppMSIResourceId": "[variables('identityResourceID')]",
                 "openWithHint": "",
                 "appPasswordHint": "",
-                "endpoint": ""
+                "endpoint": "[parameters('messagingEndpoint')]"
             }
         }
     ]
