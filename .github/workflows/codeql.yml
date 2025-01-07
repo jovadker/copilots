@@ -12,6 +12,8 @@
 name: "CodeQL Advanced"
 
 on:
+  workflow_dispatch:
+  
   push:
     paths-ignore:
      - '.github/**'
@@ -20,7 +22,8 @@ on:
     branches: [ "main" ]
   schedule:
     - cron: '42 19 * * 0'
-
+  
+    
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
