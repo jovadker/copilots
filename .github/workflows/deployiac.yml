@@ -18,5 +18,6 @@ jobs:
        run: |
             # Find all Solution.xml files in the solution directory and its subdirectories
             chmod +x ./acs/deploy.sh
-            ./acs/deploy.sh
+            cd acs
+            ./deploy.sh
 
