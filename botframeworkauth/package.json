@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/Azure-Samples/ms-identity-javascript-tutorial#readme",
   "dependencies": {
-    "@azure/msal-browser": "^2.37.0",
+    "@azure/msal-browser": "^4.5.0",
     "express": "^4.21.2",
     "morgan": "^1.10.0"
   },
